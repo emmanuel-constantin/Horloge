@@ -39,7 +39,6 @@ thread = threading.Thread(target=horloge.actualiser_heure)
 thread.daemon = True
 thread.start()
 
-# Exemple d'utilisation de la fonction regler_alarme
 horloge.regler_alarme((16, 30, 10))
 
 # Le programme continuera de s'exécuter jusqu'à ce qu'il soit interrompu manuellement.
