@@ -17,26 +17,24 @@ if programmer_alarme.lower() == "o":
 else:
     alarme_programmee = False
 
-# Boucle pour actualiser l'heure demandée toutes les secondes
-while True:
-    afficher_heure(heures, minutes, secondes)
-    time.sleep(1)
-    secondes += 1
-    if secondes == 60:
-        secondes = 0
-        minutes += 1
-    if minutes == 60:
-        minutes = 0
-        heures += 1
-    if heures == 24:
-        heures = 0
+# Initialisation du temps écoulé
+temps_ecoule = 0
 
+# Boucle pour actualiser l'heure réglée toutes les secondes
+while True:
+    heures_actuelles = (heures + temps_ecoule // 3600) % 24
+    minutes_actuelles = (minutes + (temps_ecoule // 60) % 60) % 60
+    secondes_actuelles = (secondes + temps_ecoule % 60) % 60
     # Vérification si l'heure actuelle correspond à l'heure demandée
-    heure_actuelle = time.localtime()
-    if heure_actuelle.tm_hour == heures and heure_actuelle.tm_min == minutes and heure_actuelle.tm_sec == secondes:
-        print("\nHeure demandée atteinte !")
+    if heures_actuelles == heures and minutes_actuelles == minutes and secondes_actuelles == secondes:
+        print("\nHorloge réglée !")
 
     # Vérification si l'heure actuelle correspond à l'heure de l'alarme programmée
-    if alarme_programmee and heure_actuelle.tm_hour == heure_alarme[0] and heure_actuelle.tm_min == heure_alarme[1] and heure_actuelle.tm_sec == heure_alarme[2]:
-        print("\nAlarme !")
-        break
+    if alarme_programmee and heures_actuelles == heure_alarme[0] and minutes_actuelles == heure_alarme[1] and secondes_actuelles == heure_alarme[2]:
+        print("\nDriiiing  !!!!")
+        
+    afficher_heure(heures_actuelles, minutes_actuelles, secondes_actuelles)
+    time.sleep(1)
+    temps_ecoule += 1
+
+
